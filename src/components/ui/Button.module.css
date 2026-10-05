@@ -1,26 +1,127 @@
 .button {
+  /* Neutralise browser defaults so every variant is predictable. */
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.8rem 1.6rem;
-  border-radius: var(--radius-full);
-  font-weight: 600;
+  justify-content: center;
+  gap: var(--space-2);
+  margin: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-weight: var(--weight-medium);
+  line-height: 1;
+  letter-spacing: var(--tracking-normal);
+  text-align: center;
   text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
   transition:
-    transform var(--transition-fast),
-    background var(--transition-fast);
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-base),
+    transform var(--transition-fast);
 }
 
-.button:hover {
-  transform: translateY(-2px);
+.button:active {
+  /* Pressed state: settle, don't lift. */
+  transform: translateY(0);
 }
 
+/* --------------------------------------------------------------------------
+   Sizes
+   -------------------------------------------------------------------------- */
+.sm {
+  padding: 0.5rem 0.875rem;
+  font-size: var(--text-sm);
+}
+
+.md {
+  padding: 0.6875rem 1.25rem;
+  font-size: var(--text-base);
+}
+
+.lg {
+  padding: 0.875rem 1.75rem;
+  font-size: var(--text-md);
+}
+
+/* --------------------------------------------------------------------------
+   Variants
+   -------------------------------------------------------------------------- */
 .primary {
-  background: var(--color-primary);
-  color: var(--color-on-primary);
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+  box-shadow: var(--shadow-xs);
+}
+
+.primary:hover {
+  background-color: var(--color-accent-hover);
+  color: var(--color-on-accent);
+  box-shadow: var(--shadow-accent);
+  transform: translateY(-1px);
+}
+
+.primary:active {
+  background-color: var(--color-accent-active);
+  box-shadow: var(--shadow-xs);
 }
 
 .outline {
-  border: 1px solid currentColor;
-  color: inherit;
+  background-color: transparent;
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+
+.outline:hover {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+
+.outline:active {
+  background-color: var(--color-accent-soft-hover);
+  border-color: var(--color-accent);
+}
+
+.ghost {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+}
+
+.ghost:hover {
+  background-color: var(--color-surface-sunken);
+  color: var(--color-text);
+}
+
+.ghost:active {
+  background-color: var(--color-border);
+}
+
+/* --------------------------------------------------------------------------
+   States
+   -------------------------------------------------------------------------- */
+
+/* Inline the ring so it follows the button's border radius instead of the
+   4px global default. Global :focus-visible in globals.css handles the rest. */
+.button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.button:disabled,
+.button[aria-disabled='true'] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.button:disabled:hover,
+.button[aria-disabled='true']:hover {
+  transform: none;
+  box-shadow: none;
 }

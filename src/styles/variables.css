@@ -1,33 +1,200 @@
-/* Design tokens. Change brand colours, spacing and typography here only. */
+/* =============================================================================
+   Poorvadi Design System — foundation tokens
+   Theme: light only (white / warm off-white / charcoal / warm coral accent)
+
+   Rules of the system
+   - Semantic names only. Components must never hard-code a hex value.
+   - Spacing is a 4px-based scale. Anything off-scale needs a token, not a value.
+   - Radii stay restrained so cards read as engineering, not toys.
+   - Shadows are warm-tinted and low-opacity: elevation, not decoration.
+   ========================================================================== */
+
 :root {
-  /* Colours */
-  --color-primary: #2563eb;
-  --color-primary-soft: rgb(37 99 235 / 0.15);
-  --color-on-primary: #ffffff;
-  --color-bg: #ffffff;
-  --color-surface: #f4f5f7;
-  --color-text: #0f172a;
-  --color-text-muted: #475569;
+  /* ---------------------------------------------------------------------
+     Brand ramp — warm coral / orange.
+     Hue (~14-22deg) sits next to the warm neutrals below so the UI feels unified.
+     --------------------------------------------------------------------- */
+  --coral-50: #fff5f1;
+  --coral-100: #ffe8df;
+  --coral-200: #ffcdb8;
+  --coral-300: #fda98a;
+  --coral-400: #f97c4f;
+  --coral-500: #ef5a24; /* primary */
+  --coral-600: #d8420f;
+  --coral-700: #b2340a;
+  --coral-800: #8a2807;
 
-  /* Typography */
-  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Navy — reserved for high-trust moments (legal, status, docs).
+     A supporting colour, not a second brand colour. */
+  --navy-600: #1f3350;
+  --navy-700: #16243a;
 
-  /* Spacing scale (0.25rem steps) */
+  /* ---------------------------------------------------------------------
+     Warm neutrals — the 90% of the interface
+     --------------------------------------------------------------------- */
+  --white: #ffffff;
+  --sand-25: #fdfcfb;
+  --sand-50: #faf8f6;
+  --sand-100: #f5f2ef;
+  --sand-200: #ebe6e1;
+  --sand-300: #dcd5ce;
+  --sand-400: #bdb4aa;
+  --sand-500: #8c837a;
+  --sand-600: #6b6259; /* AA on white for body copy */
+  --sand-700: #4a423a;
+  --sand-800: #2a2521;
+  --sand-900: #14110f; /* primary text — warm near-black */
+
+  /* ---------------------------------------------------------------------
+     Semantic colours
+     --------------------------------------------------------------------- */
+  --color-bg: var(--white);
+  --color-bg-subtle: var(--sand-50);
+  --color-surface: var(--sand-50);
+  --color-surface-raised: var(--white);
+  --color-surface-sunken: var(--sand-100);
+  --color-border: var(--sand-200);
+  --color-border-strong: var(--sand-300);
+
+  --color-text: var(--sand-900);
+  --color-text-secondary: var(--sand-700);
+  --color-text-muted: var(--sand-600); /* 5.9:1 on --color-bg */
+  --color-text-subtle: var(--sand-500); /* decorative / large text only */
+  --color-text-inverse: var(--white);
+
+  --color-accent: var(--coral-500);
+  --color-accent-hover: var(--coral-600);
+  --color-accent-active: var(--coral-700);
+  --color-accent-soft: var(--coral-50);
+  --color-accent-soft-hover: var(--coral-100);
+  --color-accent-border: var(--coral-200);
+  --color-on-accent: var(--white);
+
+  --color-navy: var(--navy-700);
+  --color-navy-soft: #eef2f7;
+
+  --color-focus: var(--coral-600);
+
+  /* ---- Legacy aliases ---------------------------------------------------
+     Still referenced by sections not yet redesigned (Hero, About, Footer,
+     ScrollProgress). Aliasing keeps them on-brand without editing them.
+     Migrate those call sites to the semantic names, then delete this block.
+     -------------------------------------------------------------------- */
+  --color-primary: var(--color-accent);
+  --color-primary-soft: var(--color-accent-soft);
+  --color-on-primary: var(--color-on-accent);
+
+  /* ---------------------------------------------------------------------
+     Typography
+     --------------------------------------------------------------------- */
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+  --font-display:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Fluid type scale — min at 360px viewport, max at 1440px */
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-md: 1rem;
+  --text-lg: clamp(1.0625rem, 1.02rem + 0.18vw, 1.125rem);
+  --text-xl: clamp(1.1875rem, 1.11rem + 0.34vw, 1.375rem);
+  --text-2xl: clamp(1.375rem, 1.24rem + 0.6vw, 1.75rem);
+  --text-3xl: clamp(1.625rem, 1.39rem + 1.05vw, 2.25rem);
+  --text-4xl: clamp(2rem, 1.6rem + 1.75vw, 3rem);
+  --text-5xl: clamp(2.375rem, 1.78rem + 2.6vw, 4rem);
+  --text-display: clamp(2.625rem, 1.83rem + 3.5vw, 4.5rem);
+
+  --leading-tight: 1.08;
+  --leading-snug: 1.22;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+
+  --tracking-tight: -0.022em;
+  --tracking-tighter: -0.035em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.06em;
+  --tracking-widest: 0.14em;
+/* ---------------------------------------------------------------------
+     Spacing — 4px base scale
+     --------------------------------------------------------------------- */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
   --space-4: 1rem;
+  --space-5: 1.25rem;
   --space-6: 1.5rem;
+  --space-7: 1.75rem;
   --space-8: 2rem;
-  --space-12: 6rem;
+  --space-9: 2.5rem;
+  --space-10: 3rem;
+  --space-12: 4rem;
+  --space-14: 5rem;
+  --space-16: 6rem;
+  --space-20: 8rem;
 
-  /* Layout */
+  /* Vertical rhythm between major page sections */
+  --section-space-y: clamp(var(--space-12), 3rem + 6vw, var(--space-20));
+
+  /* ---------------------------------------------------------------------
+     Layout
+     --------------------------------------------------------------------- */
   --container-width: 1200px;
-  --radius-sm: 6px;
-  --radius-full: 999px;
-  --shadow-sm: 0 1px 8px rgb(15 23 42 / 0.08);
+  --container-width-narrow: 760px; /* long-form reading measure */
+  --container-width-wide: 1360px;
+  --container-gutter: clamp(1.25rem, 0.85rem + 1.8vw, 2.5rem);
 
-  /* Motion */
-  --transition-fast: 150ms ease;
-  --transition-base: 250ms ease;
+  /* Compact on purpose — a tall header shrinks the content area and reads as dated. */
+  --navbar-height: 4rem;
+  --content-max-width: 68ch;
+
+  /* ---------------------------------------------------------------------
+     Radii — restrained; pills are reserved for status dots
+     --------------------------------------------------------------------- */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-full: 999px;
+
+  /* ---------------------------------------------------------------------
+     Elevation — warm-tinted, low opacity
+     --------------------------------------------------------------------- */
+  --shadow-xs: 0 1px 2px rgb(36 24 16 / 0.04);
+  --shadow-sm: 0 1px 2px rgb(36 24 16 / 0.05), 0 1px 1px rgb(36 24 16 / 0.03);
+  --shadow-md: 0 2px 4px rgb(36 24 16 / 0.04), 0 6px 16px -4px rgb(36 24 16 / 0.08);
+  --shadow-lg: 0 4px 8px rgb(36 24 16 / 0.04), 0 16px 40px -12px rgb(36 24 16 / 0.14);
+  --shadow-accent: 0 6px 20px -6px rgb(239 90 36 / 0.45);
+
+  /* Hairline for structural dividers (nav, footer, tables) */
+  --shadow-hairline: inset 0 -1px 0 var(--color-border);
+
+  /* ---------------------------------------------------------------------
+     Motion — purposeful and short. Nothing interactive exceeds 240ms.
+     --------------------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.36, 0.64, 1);
+
+  --duration-instant: 80ms;
+  --transition-fast: 150ms var(--ease-out);
+  --transition-base: 220ms var(--ease-out);
+  --transition-slow: 320ms var(--ease-out);
+
+  /* ---------------------------------------------------------------------
+     Layers
+     --------------------------------------------------------------------- */
+  --z-base: 0;
+  --z-progress: 100;
+  --z-navbar: 200;
+  --z-drawer: 300;
 }

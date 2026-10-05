@@ -1,47 +1,278 @@
-.navbar {
+/* --------------------------------------------------------------------------
+   Bar
+   -------------------------------------------------------------------------- */
+.header {
   position: fixed;
   inset: 0 0 auto;
-  z-index: 50;
-  padding-block: var(--space-4);
+  z-index: var(--z-navbar);
+  height: var(--navbar-height);
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
   transition:
-    background var(--transition-base),
-    padding var(--transition-base);
+    background-color var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
 }
 
-.scrolled {
-  background: color-mix(in srgb, var(--color-bg) 85%, transparent);
-  backdrop-filter: blur(10px);
-  padding-block: var(--space-2);
-  box-shadow: var(--shadow-sm);
+/* Subtle separation once content passes underneath — depth, not a heavy band. */
+.header[data-scrolled='true'] {
+  background-color: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  box-shadow: var(--shadow-xs);
 }
 
 .inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--space-6);
+  height: 100%;
 }
 
+/* --------------------------------------------------------------------------
+   Brand
+   -------------------------------------------------------------------------- */
 .logo {
-  font-size: 1.25rem;
-  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
   color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
   text-decoration: none;
+  border-radius: var(--radius-sm);
+}
+
+.logo:hover {
+  color: var(--color-text);
+}
+
+/* The only brand mark, built from tokens so no image asset is required. */
+.logoMark {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--color-accent), var(--coral-600));
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.18);
+}
+
+/* Mark-only on very small screens; the wordmark fits from 480px up. */
+.logoText {
+  display: none;
+}
+
+@media (min-width: 30rem) {
+  .logoText {
+    display: inline;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Desktop navigation
+   -------------------------------------------------------------------------- */
+.desktopNav {
+  display: none;
+  align-items: center;
+  gap: var(--space-8);
 }
 
 .links {
   display: flex;
-  gap: var(--space-4);
+  align-items: center;
+  gap: var(--space-7);
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.links a {
-  color: var(--color-text-muted);
+.link {
+  position: relative;
+  display: inline-block;
+  padding-block: var(--space-1);
+  color: var(--color-text-secondary);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
   text-decoration: none;
-  font-weight: 500;
+  border-radius: var(--radius-xs);
+  transition: color var(--transition-fast);
 }
 
-.links a:hover {
-  color: var(--color-primary);
+/* Underline grows from the left — restrained, and it confirms the hit area. */
+.link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1.5px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--transition-base);
+}
+
+.link:hover {
+  color: var(--color-text);
+}
+
+.link:hover::after {
+  transform: scaleX(1);
+}
+
+.link[aria-current='true'] {
+  color: var(--color-text);
+  font-weight: var(--weight-medium);
+}
+
+.link[aria-current='true']::after {
+  transform: scaleX(1);
+}
+
+.cta {
+  flex-shrink: 0;
+/* --------------------------------------------------------------------------
+   Mobile toggle — two bars that rotate into an X
+   -------------------------------------------------------------------------- */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.toggle:hover {
+  background-color: var(--color-surface-sunken);
+  border-color: var(--color-border-strong);
+  color: var(--color-accent);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.toggleIcon {
+  position: relative;
+  display: block;
+  width: 1rem;
+  height: 0.625rem;
+}
+
+.toggleIcon::before,
+.toggleIcon::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  border-radius: var(--radius-full);
+  background-color: currentColor;
+  transition:
+    transform var(--transition-base),
+    top var(--transition-base);
+}
+
+.toggleIcon::before {
+  top: 0;
+}
+
+.toggleIcon::after {
+  top: 7px;
+}
+
+.toggleIcon[data-open='true']::before,
+.toggleIcon[data-open='true']::after {
+  top: 3.5px;
+}
+
+.toggleIcon[data-open='true']::before {
+  transform: rotate(45deg);
+}
+
+.toggleIcon[data-open='true']::after {
+  transform: rotate(-45deg);
+}
+
+/* --------------------------------------------------------------------------
+   Mobile drawer
+   -------------------------------------------------------------------------- */
+.drawer {
+  position: absolute;
+  inset: var(--navbar-height) 0 auto;
+  max-height: calc(100dvh - var(--navbar-height));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+}
+
+.drawerInner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-block: var(--space-6) var(--space-8);
+}
+
+.drawerLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.drawerLink {
+  display: block;
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-tight);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.drawerLink:hover {
+  color: var(--color-accent);
+}
+
+.drawerLink[aria-current='true'] {
+  color: var(--color-accent);
+}
+
+.drawerCta {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Breakpoint — single source of truth for the desktop/mobile switch
+   -------------------------------------------------------------------------- */
+@media (min-width: 62rem) {
+  .desktopNav {
+    display: flex;
+  }
+
+  .toggle {
+    display: none;
+  }
+}
 }
