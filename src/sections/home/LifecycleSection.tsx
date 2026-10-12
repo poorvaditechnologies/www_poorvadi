@@ -1,6 +1,5 @@
 import { motion } from 'motion/react';
-import { FadeIn } from '@/components/animations';
-import { Container } from '@/components/ui';
+import { Container, SectionIntro } from '@/components/ui';
 import { LIFECYCLE } from '@/constants/proof';
 import { fadeUp, stagger } from '@/lib/motion';
 import styles from './LifecycleSection.module.css';
@@ -13,12 +12,11 @@ export function LifecycleSection() {
   return (
     <section aria-labelledby="lifecycle-heading" className={styles.section}>
       <Container>
-        <FadeIn className={styles.intro}>
-          <p className={styles.eyebrow}>{LIFECYCLE.eyebrow}</p>
-          <h2 id="lifecycle-heading" className={styles.heading}>
-            {LIFECYCLE.heading}
-          </h2>
-        </FadeIn>
+        <SectionIntro
+          eyebrow={LIFECYCLE.eyebrow}
+          heading={LIFECYCLE.heading}
+          headingId="lifecycle-heading"
+        />
 
         <motion.ol
           className={styles.steps}

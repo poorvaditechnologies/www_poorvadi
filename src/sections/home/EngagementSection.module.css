@@ -6,35 +6,8 @@
   background-color: var(--color-bg); /* remapped to navy-900 inside .theme-dark */
 }
 
-.intro {
-  max-width: 44rem;
-  margin-bottom: var(--space-14);
-}
-
-.eyebrow {
-  margin: 0 0 var(--space-5);
-  color: var(--coral-300);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-medium);
-  letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
-}
-
-.heading {
-  margin: 0;
-  font-size: var(--text-4xl);
-  line-height: var(--leading-snug);
-  letter-spacing: var(--tracking-tight);
-  color: var(--color-text);
-}
-
-.supporting {
-  margin-top: var(--space-5);
-  color: var(--color-text-muted);
-  font-size: var(--text-lg);
-  line-height: var(--leading-relaxed);
-}
+/* Intro now renders via the shared <SectionIntro> component — its
+   `--color-eyebrow` token already resolves to coral-300 inside .theme-dark. */
 
 /* -----------------------------------------------------------------------------
    Model cards — two large cards; the RaaS card carries the coral border

@@ -1,6 +1,5 @@
 import { motion } from 'motion/react';
-import { FadeIn } from '@/components/animations';
-import { Button, Container } from '@/components/ui';
+import { Button, Container, SectionIntro } from '@/components/ui';
 import { ENGAGEMENT } from '@/constants/engagement';
 import { fadeUp, stagger } from '@/lib/motion';
 import styles from './EngagementSection.module.css';
@@ -40,13 +39,13 @@ export function EngagementSection() {
       className={`${styles.section} theme-dark`}
     >
       <Container>
-        <FadeIn className={styles.intro}>
-          <p className={styles.eyebrow}>{ENGAGEMENT.eyebrow}</p>
-          <h2 id="engagement-heading" className={styles.heading}>
-            {ENGAGEMENT.heading}
-          </h2>
-          <p className={styles.supporting}>{ENGAGEMENT.supporting}</p>
-        </FadeIn>
+        <SectionIntro
+          eyebrow={ENGAGEMENT.eyebrow}
+          heading={ENGAGEMENT.heading}
+          headingId="engagement-heading"
+          supporting={ENGAGEMENT.supporting}
+          accentRule={false}
+        />
 
         <motion.ul
           className={styles.models}

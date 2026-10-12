@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from 'motion/react';
+import { ArrowIcon } from '@/components/ui';
 import type { ServiceGroup } from '@/constants/portfolio';
 import { CardIcon } from './serviceIcons';
 import styles from './BuildRoadmap.module.css';
@@ -122,17 +123,7 @@ export function BuildRoadmap({ group }: BuildRoadmapProps) {
                 <CardIcon name={card.icon} className={styles.iconBox} />
                 <h4 className={styles.cardTitle}>{card.title}</h4>
                 <p className={styles.cardDescription}>{card.description}</p>
-                <span className={styles.cardArrow} aria-hidden="true">
-                  <svg width="20" height="12" viewBox="0 0 22 12" fill="none" focusable="false">
-                    <path
-                      d="M1 6h19M15.5 1.5 20 6l-4.5 4.5"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
+                <ArrowIcon className={styles.cardArrow} />
               </motion.div>
             </motion.li>
           );

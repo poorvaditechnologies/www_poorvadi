@@ -1,6 +1,5 @@
 import { motion } from 'motion/react';
-import { FadeIn } from '@/components/animations';
-import { Button, Container } from '@/components/ui';
+import { Button, Container, SectionIntro } from '@/components/ui';
 import { PRODUCTS } from '@/constants/products';
 import { fadeUp, stagger } from '@/lib/motion';
 import styles from './ProductsSection.module.css';
@@ -13,13 +12,12 @@ export function ProductsSection() {
   return (
     <section id="products" aria-labelledby="products-heading" className={styles.section}>
       <Container>
-        <FadeIn className={styles.intro}>
-          <p className={styles.eyebrow}>{PRODUCTS.eyebrow}</p>
-          <h2 id="products-heading" className={styles.heading}>
-            {PRODUCTS.heading}
-          </h2>
-          <p className={styles.supporting}>{PRODUCTS.supporting}</p>
-        </FadeIn>
+        <SectionIntro
+          eyebrow={PRODUCTS.eyebrow}
+          heading={PRODUCTS.heading}
+          headingId="products-heading"
+          supporting={PRODUCTS.supporting}
+        />
 
         <motion.ul
           className={styles.cards}

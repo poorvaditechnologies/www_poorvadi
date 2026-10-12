@@ -1,6 +1,5 @@
 import { motion } from 'motion/react';
-import { FadeIn } from '@/components/animations';
-import { Container } from '@/components/ui';
+import { Container, SectionIntro } from '@/components/ui';
 import { RAAS_LOOP } from '@/constants/engagement';
 import { fadeUp, stagger } from '@/lib/motion';
 import styles from './RaasLoopSection.module.css';
@@ -19,13 +18,13 @@ export function RaasLoopSection() {
       className={`${styles.section} theme-dark`}
     >
       <Container>
-        <FadeIn className={styles.intro}>
-          <p className={styles.eyebrow}>{RAAS_LOOP.eyebrow}</p>
-          <h2 id="raas-loop-heading" className={styles.heading}>
-            {RAAS_LOOP.heading}
-          </h2>
-          <p className={styles.supporting}>{RAAS_LOOP.supporting}</p>
-        </FadeIn>
+        <SectionIntro
+          eyebrow={RAAS_LOOP.eyebrow}
+          heading={RAAS_LOOP.heading}
+          headingId="raas-loop-heading"
+          supporting={RAAS_LOOP.supporting}
+          accentRule={false}
+        />
 
         <motion.ol
           className={styles.steps}

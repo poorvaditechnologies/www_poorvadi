@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { useRef, useState } from 'react';
 import { FadeIn } from '@/components/animations';
-import { Button, Container, SocialLinks } from '@/components/ui';
+import { ArrowIcon, Button, Container, SocialLinks } from '@/components/ui';
 import { PEOPLE, type Person } from '@/constants/people';
 import { fadeUp, stagger } from '@/lib/motion';
 import { ProfileDrawer } from './ProfileDrawer';
@@ -127,23 +127,7 @@ export function PeopleSection() {
                     <span className={styles.cardFooter}>
                       <span className={styles.cardCta}>
                         View profile
-                        <svg
-                          className={styles.cardArrow}
-                          width="18"
-                          height="12"
-                          viewBox="0 0 22 12"
-                          fill="none"
-                          aria-hidden="true"
-                          focusable="false"
-                        >
-                          <path
-                            d="M1 6h19M15.5 1.5 20 6l-4.5 4.5"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+                        <ArrowIcon className={styles.cardArrow} />
                       </span>
                     </span>
                   </button>

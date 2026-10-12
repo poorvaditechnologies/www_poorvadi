@@ -1,6 +1,5 @@
 import { motion } from 'motion/react';
-import { FadeIn } from '@/components/animations';
-import { Container } from '@/components/ui';
+import { Container, SectionIntro } from '@/components/ui';
 import { CASE_STUDIES } from '@/constants/proof';
 import { fadeUp, stagger } from '@/lib/motion';
 import styles from './CaseStudiesSection.module.css';
@@ -14,13 +13,12 @@ export function CaseStudiesSection() {
   return (
     <section id="case-studies" aria-labelledby="cases-heading" className={styles.section}>
       <Container>
-        <FadeIn className={styles.intro}>
-          <p className={styles.eyebrow}>{CASE_STUDIES.eyebrow}</p>
-          <h2 id="cases-heading" className={styles.heading}>
-            {CASE_STUDIES.heading}
-          </h2>
-          <p className={styles.supporting}>{CASE_STUDIES.supporting}</p>
-        </FadeIn>
+        <SectionIntro
+          eyebrow={CASE_STUDIES.eyebrow}
+          heading={CASE_STUDIES.heading}
+          headingId="cases-heading"
+          supporting={CASE_STUDIES.supporting}
+        />
 
         <motion.ul
           className={styles.cards}

@@ -6,6 +6,7 @@ import {
   LifecycleSection,
   PeopleSection,
   ProductsSection,
+  RaasLoopSection,
   ServicesSection,
   StatsSection,
   TestimonialsSection,
@@ -24,6 +25,7 @@ export function HomePage() {
       <TrustedBySection />
       <ServicesSection />
       <EngagementSection />
+      <RaasLoopSection />
       <ProductsSection />
       <WhyChooseUsSection />
       <StatsSection />

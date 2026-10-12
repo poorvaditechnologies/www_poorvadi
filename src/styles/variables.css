@@ -85,6 +85,10 @@
 
   --color-focus: var(--coral-600);
 
+  /* Section eyebrow label — coral-600 reads fine on white but is too dark
+     against navy; `.theme-dark` repoints it to a lighter coral. */
+  --color-eyebrow: var(--color-accent-hover);
+
   /* ---- Legacy aliases ---------------------------------------------------
      Still referenced by sections not yet redesigned (Hero, About, Footer,
      ScrollProgress). Aliasing keeps them on-brand without editing them.

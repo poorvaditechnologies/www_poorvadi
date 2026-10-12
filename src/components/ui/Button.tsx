@@ -12,14 +12,16 @@ interface CommonProps {
 }
 
 /** Anchor form — the original public API, unchanged. */
-type LinkButtonProps = CommonProps & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & {
-  href: string;
-};
+type LinkButtonProps = CommonProps &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & {
+    href: string;
+  };
 
 /** Native button form — used when no `href` is supplied, so `disabled` works. */
-type ActionButtonProps = CommonProps & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'href'> & {
-  href?: never;
-};
+type ActionButtonProps = CommonProps &
+  Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'href'> & {
+    href?: never;
+  };
 
 export type ButtonProps = LinkButtonProps | ActionButtonProps;
 
@@ -60,7 +62,9 @@ export function Button(props: ButtonProps) {
   return (
     <button
       type={type}
-      className={[styles.button, styles[variant], styles[size], className].filter(Boolean).join(' ')}
+      className={[styles.button, styles[variant], styles[size], className]
+        .filter(Boolean)
+        .join(' ')}
       {...rest}
     >
       {children}
