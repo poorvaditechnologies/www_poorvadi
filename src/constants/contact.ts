@@ -51,14 +51,6 @@ export const FOOTER = {
       title: 'COMPANY',
       links: [
         { label: 'Case Studies', href: '#case-studies' },
-        { label: 'Architecture Blog', href: '#' },
-        { label: 'Privacy Policy', href: '/privacy' },
-        { label: 'Terms of Service', href: '/terms' },
-      ],
-    },
-    {
-      title: 'LEGAL',
-      links: [
         { label: 'Privacy Policy', href: '/privacy' },
         { label: 'Terms of Service', href: '/terms' },
         { label: 'Cookie Preferences', action: 'cookies' },
@@ -68,8 +60,6 @@ export const FOOTER = {
   legal: [
     { label: 'Privacy Policy', href: '/privacy' },
     { label: 'Terms of Service', href: '/terms' },
-    /* Kept as-is: no real Security page exists yet. */
-    { label: 'Security', href: '#' },
     { label: 'Cookie Preferences', action: 'cookies' },
   ],
 } as const;

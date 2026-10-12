@@ -22,6 +22,12 @@
   text-align: center;
 }
 
+/* 5 stats in a 2-column grid leaves a lone orphan on row 3 — span it full
+   width so it centers instead of sitting left-aligned on its own. */
+.item:last-child {
+  grid-column: 1 / -1;
+}
+
 .value {
   color: var(--white);
   font-family: var(--font-display);
@@ -45,6 +51,10 @@
 @media (min-width: 36rem) {
   .list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .item:last-child {
+    grid-column: auto;
   }
 }
 

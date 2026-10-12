@@ -1,0 +1,17 @@
+.mark {
+  display: inline-block;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--color-accent), var(--coral-600));
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.18);
+}
+
+.sm {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.md {
+  width: 2rem;
+  height: 2rem;
+}

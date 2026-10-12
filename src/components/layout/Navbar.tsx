@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Button, Container } from '@/components/ui';
+import { BrandMark, Button, Container } from '@/components/ui';
 import { NAV_CTA, NAV_LINKS, SITE } from '@/constants/site';
 import { useScrolled } from '@/hooks/useScrolled';
 import styles from './Navbar.module.css';
@@ -103,7 +103,7 @@ export function Navbar() {
     >
       <Container className={styles.inner}>
         <Link to="/" className={styles.logo} aria-label={`${SITE.name} — home`}>
-          <span className={styles.logoMark} aria-hidden="true" />
+          <BrandMark />
           <span className={styles.logoText}>{SITE.name}</span>
           {/* Legal-structure badge, exactly as shown in the Figma navbar. */}
           <span className={styles.badge}>{SITE.badge}</span>

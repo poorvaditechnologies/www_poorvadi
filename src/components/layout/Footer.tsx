@@ -1,14 +1,18 @@
 import { Link } from 'react-router-dom';
 import { useCookieConsent } from '@/components/cookie/consentContext';
-import { Container } from '@/components/ui';
+import { BrandMark, Container } from '@/components/ui';
 import { FOOTER } from '@/constants/contact';
 import { SITE } from '@/constants/site';
 import styles from './Footer.module.css';
 
+/** SITE.phone is still the placeholder — don't show a fake number to visitors. */
+const PLACEHOLDER_PHONE = '+91 00000 00000';
+const hasRealPhone = SITE.phone !== PLACEHOLDER_PHONE;
+
 /**
  * Dark navy footer (§16) — brand block, three link columns, status pill and
- * the legal bottom bar. Structure follows the Figma exactly; the LEGAL column
- * and working privacy/terms/cookie links were added for the trust experience.
+ * the legal bottom bar. Structure follows the Figma; working privacy/terms/
+ * cookie links were added for the trust experience.
  */
 export function Footer() {
   const { openPreferences } = useCookieConsent();
@@ -18,7 +22,10 @@ export function Footer() {
       <Container>
         <div className={styles.top}>
           <div className={styles.brand}>
-            <p className={styles.brandName}>{SITE.name} LLP</p>
+            <p className={styles.brandMark}>
+              <BrandMark size="md" />
+              <span className={styles.brandName}>{SITE.name} LLP</span>
+            </p>
             <p className={styles.description}>{FOOTER.description}</p>
 
             <ul className={styles.contact}>
@@ -28,10 +35,12 @@ export function Footer() {
                   {SITE.email}
                 </a>
               </li>
-              <li>
-                <span className={styles.contactLabel}>Phone:</span>{' '}
-                <span className={styles.contactValue}>{SITE.phone}</span>
-              </li>
+              {hasRealPhone && (
+                <li>
+                  <span className={styles.contactLabel}>Phone:</span>{' '}
+                  <span className={styles.contactValue}>{SITE.phone}</span>
+                </li>
+              )}
               <li>
                 <span className={styles.contactLabel}>Location:</span>{' '}
                 <span className={styles.contactValue}>{SITE.location}</span>

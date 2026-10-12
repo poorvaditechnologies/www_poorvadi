@@ -102,11 +102,12 @@
      Typography
      --------------------------------------------------------------------- */
   --font-sans:
-    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    sans-serif;
-  --font-display:
-    -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue',
+    'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue',
     Arial, sans-serif;
+  /* Editorial serif for headings — the "classic" counterweight to the clean
+     sans body copy. Falls back to the sans stack if the webfont hasn't
+     loaded yet, so layout never shifts from a FOUT. */
+  --font-display: 'Fraunces', 'SF Pro Display', Georgia, 'Times New Roman', serif;
   --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 
   --weight-regular: 400;
@@ -210,5 +211,8 @@
   --z-base: 0;
   --z-progress: 100;
   --z-navbar: 200;
-  --z-drawer: 300;
+  --z-drawer: 300; /* cookie banner + its preferences dialog */
+  /* Mobile nav menu — above the cookie banner so an open menu is never
+     visually covered by the bottom-fixed cookie UI on small screens. */
+  --z-nav-drawer: 400;
 }

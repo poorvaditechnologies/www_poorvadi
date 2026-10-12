@@ -68,9 +68,13 @@ you add a real file to that folder.
 - **Animation:** use the presets in `lib/motion.ts` and the wrappers in `components/animations`
   so motion stays consistent. `MotionConfig reducedMotion="user"` already respects users'
   reduced-motion setting.
-- **Adding a section:** create `src/sections/home/NewSection.tsx` (+ `.module.css`), export it
-  from `sections/home/index.ts`, and render it in `pages/HomePage.tsx`. Give it an `id` and add
-  a link in `NAV_LINKS` (`constants/site.ts`) if it should appear in the navbar.
+- **Adding a section:** create its own folder, e.g. `src/sections/home/new-section/NewSection.tsx`
+  (+ `.module.css`, plus any icons/sub-components it alone uses), export it from
+  `sections/home/index.ts`, and render it in `pages/HomePage.tsx`. Give it an `id` and add a link
+  in `NAV_LINKS` (`constants/site.ts`) if it should appear in the navbar. Each home section lives
+  in its own kebab-case folder (`sections/home/hero/`, `sections/home/services/`, …) so a
+  section's component, styles, and anything private to it (e.g. `services/BuildRoadmap.tsx`,
+  `people/ProfileDrawer.tsx`) stay colocated instead of flattened into one 30-file directory.
 - **Adding a page:** create `src/pages/XxxPage.tsx` and register it in `src/app/router.tsx`.
 - **Env vars:** must start with `VITE_` and are read via `import.meta.env.VITE_…`.
   Never put secrets in them; they are shipped to the browser.

@@ -104,6 +104,9 @@
   font-size: var(--text-sm);
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-wide);
+  /* Values like "KYC-ROUTED" can be wider than a narrow-phone column —
+     wrap instead of overflowing into the next cell. */
+  overflow-wrap: anywhere;
 }
 
 .bullets {
@@ -142,6 +145,15 @@
    Responsive — 1 col phone, 2-up tablet, 3 across desktop so the dense
    bullet content keeps a readable measure
    -------------------------------------------------------------------------- */
+
+/* On the smallest phones three status columns squeeze values like
+   "KYC-ROUTED" into ~70px — stack them instead so each stays readable. */
+@media (max-width: 25.99rem) {
+  .panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (min-width: 44rem) {
   .cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
