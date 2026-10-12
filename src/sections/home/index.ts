@@ -1,2 +1,13 @@
-export { AboutSection } from './AboutSection';
+export { CaseStudiesSection } from './CaseStudiesSection';
+export { EngagementSection } from './EngagementSection';
+export { FinalCTASection } from './FinalCTASection';
 export { HeroSection } from './HeroSection';
+export { LifecycleSection } from './LifecycleSection';
+export { PeopleSection } from './PeopleSection';
+export { ProductsSection } from './ProductsSection';
+export { RaasLoopSection } from './RaasLoopSection';
+export { ServicesSection } from './ServicesSection';
+export { StatsSection } from './StatsSection';
+export { TestimonialsSection } from './TestimonialsSection';
+export { TrustedBySection } from './TrustedBySection';
+export { WhyChooseUsSection } from './WhyChooseUsSection';

@@ -1,0 +1,282 @@
+/* -----------------------------------------------------------------------------
+   BUILD roadmap — engineering timeline.
+
+   Mobile/tablet: vertical rail — node in the left column, card beside it,
+   hairline segments linking the milestones. No horizontal overflow.
+
+   Desktop (≥62rem): four columns with no column gap (li padding provides the
+   visual gap) so every node centre sits exactly on its path anchor. The SVG
+   track occupies the fixed-height middle row; cards alternate above/below it
+   and hairline drops tie each node to its card.
+
+   Flat: hairline borders, no shadows beyond an optional whisper, restrained
+   radius, coral accent with a subtle teal touch on alternating nodes.
+   -------------------------------------------------------------------------- */
+.roadmap {
+  --band-h: 9rem;
+  --node-size: 2.75rem;
+  position: relative;
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-subtle);
+}
+
+.milestones {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The curve is a desktop affordance only. */
+.track {
+  display: none;
+}
+
+.milestone {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--node-size) minmax(0, 1fr);
+  column-gap: var(--space-4);
+  align-items: start;
+}
+
+/* Rail segment from this milestone's node down to the next one. */
+.milestone::after {
+  content: '';
+  position: absolute;
+  left: calc(var(--node-size) / 2 - 0.5px);
+  top: var(--node-size);
+  bottom: calc(-1 * var(--space-6));
+  width: 1px;
+  background-color: var(--color-border-strong);
+}
+
+.milestone:last-of-type::after {
+  display: none;
+}
+
+/* -----------------------------------------------------------------------------
+   Node — coral ring, mono index. Even milestones pick up the subtle teal.
+   -------------------------------------------------------------------------- */
+.node {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--node-size);
+  height: var(--node-size);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-full);
+  background-color: var(--color-bg-subtle);
+  color: var(--color-accent-hover);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.node::before {
+  display: none;
+}
+
+.teal .node {
+  border-color: color-mix(in srgb, var(--color-teal) 45%, var(--color-border));
+  color: var(--color-teal-text);
+}
+
+.milestone:hover .node {
+  border-color: var(--color-accent);
+}
+
+/* -----------------------------------------------------------------------------
+   Card — white surface, hairline border, restrained radius.
+   Hover: coral border tint, small lift, arrow nudge. Nothing exaggerated.
+   -------------------------------------------------------------------------- */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  height: 100%;
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-raised);
+  transition:
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.card:hover {
+  border-color: var(--color-accent-border);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xs);
+}
+
+.iconBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  color: var(--color-accent);
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.teal .iconBox {
+  color: var(--color-teal-text);
+  border-color: color-mix(in srgb, var(--color-teal) 30%, var(--color-border));
+}
+
+.card:hover .iconBox {
+  border-color: var(--color-accent-border);
+  color: var(--color-accent-hover);
+}
+
+.cardTitle {
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+}
+
+.cardDescription {
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+}
+
+.cardArrow {
+  display: block;
+  margin-top: auto;
+  padding-top: var(--space-4);
+  color: var(--color-border-strong);
+  transition:
+    transform var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.card:hover .cardArrow {
+  transform: translateX(4px);
+  color: var(--color-accent);
+}
+
+/* -----------------------------------------------------------------------------
+   Desktop — curved roadmap
+   -------------------------------------------------------------------------- */
+@media (min-width: 62rem) {
+  .roadmap {
+    padding: var(--space-8);
+  }
+
+  .milestones {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: auto var(--band-h) auto;
+    gap: 0;
+  }
+
+  /* Track lives inside the ordered list so the middle band and the card rows
+     share one grid — no subgrid, no absolute-position maths. */
+  .track {
+    display: block;
+    grid-row: 2;
+    grid-column: 1 / -1;
+    position: relative;
+  }
+
+  .trackSvg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .path {
+    stroke: var(--color-accent);
+    stroke-width: 1.75;
+    stroke-linecap: round;
+  }
+
+  .milestone {
+    display: block;
+    padding-inline: var(--space-3);
+  }
+
+  /* The rail segment is replaced by the SVG track here. */
+  .milestone::after {
+    display: none;
+  }
+
+  .up {
+    grid-row: 1;
+    align-self: end;
+  }
+
+  .down {
+    grid-row: 3;
+    align-self: start;
+  }
+
+  .col1 {
+    grid-column: 1;
+  }
+
+  .col2 {
+    grid-column: 2;
+  }
+
+  .col3 {
+    grid-column: 3;
+  }
+
+  .col4 {
+    grid-column: 4;
+  }
+
+  /* Node sits on the path: odd milestones at y = 30% of the band (just below
+     their card), even ones at 70% (just above theirs). Margins — not
+     transforms — so Motion owns `transform` during the reveal. */
+  .node {
+    position: absolute;
+    left: 50%;
+    margin-left: calc(var(--node-size) / -2);
+  }
+
+  .up .node {
+    top: calc(100% + var(--band-h) * 0.3 - var(--node-size) / 2);
+  }
+
+  .down .node {
+    top: calc(var(--band-h) * -0.3 - var(--node-size) / 2);
+  }
+
+  /* Hairline drop between the node and its card. */
+  .node::before {
+    content: '';
+    position: absolute;
+    left: calc(50% - 0.5px);
+    width: 1px;
+    height: calc(var(--band-h) * 0.3 - var(--node-size) / 2);
+    background-color: var(--color-border-strong);
+  }
+
+  .up .node::before {
+    bottom: 100%;
+  }
+
+  .down .node::before {
+    top: 100%;
+  }
+}

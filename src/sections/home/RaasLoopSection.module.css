@@ -1,0 +1,117 @@
+/* -----------------------------------------------------------------------------
+   RaaS Delivery Loop (Figma §8) — dark navy band directly after Engagement.
+   `theme-dark` remaps the semantic tokens; cards, borders and hover accents
+   therefore work without forked styles. Step cards: 1-up → 2-up → 4-up.
+   -------------------------------------------------------------------------- */
+.section {
+  padding-block: var(--section-space-y);
+  background-color: var(--color-bg); /* navy-900 inside .theme-dark */
+  border-top: 1px solid var(--color-border);
+}
+
+.intro {
+  max-width: 44rem;
+  margin-bottom: var(--space-10);
+}
+
+.eyebrow {
+  margin: 0 0 var(--space-5);
+  color: var(--coral-300);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+}
+
+.heading {
+  margin: 0;
+  font-size: var(--text-4xl);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+}
+
+.supporting {
+  margin-top: var(--space-5);
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+}
+
+/* -----------------------------------------------------------------------------
+   Steps — Figma structure: index / title / description cards, no connectors
+   -------------------------------------------------------------------------- */
+.steps {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  transition:
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.step:hover {
+  border-color: var(--color-accent-border);
+  transform: translateY(-2px);
+}
+
+/* Teal step labels — the secondary accent for verification cues. */
+.stepIndex {
+  color: var(--teal-400);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+}
+
+.stepTitle {
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+}
+
+.stepDescription {
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+}
+
+/* -----------------------------------------------------------------------------
+   Responsive — 2-up on tablet, 4-up on desktop
+   -------------------------------------------------------------------------- */
+@media (min-width: 48rem) {
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+}
+
+@media (min-width: 62rem) {
+  .intro {
+    margin-bottom: var(--space-12);
+  }
+
+  .steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .step {
+    padding: var(--space-7) var(--space-6);
+  }
+}

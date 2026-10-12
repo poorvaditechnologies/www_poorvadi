@@ -1,0 +1,59 @@
+/* -----------------------------------------------------------------------------
+   Stats strip — compact dark navy band between light sections
+   -------------------------------------------------------------------------- */
+.section {
+  padding-block: var(--space-14);
+  background-color: var(--navy-900);
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-8) var(--space-6);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: center;
+  text-align: center;
+}
+
+.value {
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.label {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+/* -----------------------------------------------------------------------------
+   Responsive — 2-up on small phones (5 items → 2/2/1), 5 across desktop
+   -------------------------------------------------------------------------- */
+@media (min-width: 36rem) {
+  .list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 62rem) {
+  .list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .value {
+    font-size: var(--text-5xl);
+  }
+}

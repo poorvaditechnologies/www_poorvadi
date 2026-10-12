@@ -1,0 +1,126 @@
+/* -----------------------------------------------------------------------------
+   Profile drawer — right side panel (desktop) / bottom sheet (mobile)
+   -------------------------------------------------------------------------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-drawer);
+  display: flex;
+  justify-content: flex-end;
+  background-color: rgb(20 17 15 / 0.5);
+}
+
+.panel {
+  position: relative;
+  width: min(32rem, 100vw);
+  height: 100%;
+  overflow-y: auto;
+  border-left: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow-lg);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.panel:focus {
+  outline: none;
+}
+
+.close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-raised);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.close:hover {
+  border-color: var(--color-accent-border);
+  color: var(--color-accent-hover);
+}
+
+.imageWrap {
+  aspect-ratio: 4 / 5;
+  max-height: 42vh;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.body {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-6);
+}
+
+.name {
+  font-size: var(--text-2xl);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+}
+
+.role {
+  color: var(--color-teal-text);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.contribution {
+  color: var(--color-text-secondary);
+  font-size: var(--text-md);
+  line-height: var(--leading-normal);
+}
+
+.bio {
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+}
+
+.contact {
+  justify-self: start;
+  margin-top: var(--space-2);
+}
+
+@media (max-width: 47.99rem) {
+  .overlay {
+    align-items: flex-end;
+    justify-content: stretch;
+  }
+
+  .panel {
+    width: 100%;
+    height: auto;
+    max-height: 88vh;
+    border-top: 1px solid var(--color-border);
+    border-left: 0;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  .imageWrap {
+    aspect-ratio: 16 / 10;
+    max-height: 32vh;
+  }
+}

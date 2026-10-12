@@ -1,0 +1,67 @@
+/* -----------------------------------------------------------------------------
+   Cookie banner — compact floating panel (desktop) / bottom sheet (mobile).
+   Non-modal: the page stays visible and scrollable behind it.
+   -------------------------------------------------------------------------- */
+.banner {
+  position: fixed;
+  z-index: var(--z-drawer);
+  left: var(--container-gutter);
+  right: var(--container-gutter);
+  bottom: 0;
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  padding-bottom: calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+  border: 1px solid var(--color-border);
+  border-bottom: 0;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background-color: var(--color-surface-raised);
+  box-shadow: var(--shadow-lg);
+}
+
+.title {
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+}
+
+.text {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+.link {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+/* Comfortable touch targets on small screens (and harmless on desktop). */
+.actions button {
+  min-height: 2.75rem;
+}
+
+@media (min-width: 48rem) {
+  .banner {
+    left: auto;
+    right: var(--space-6);
+    bottom: var(--space-6);
+    width: min(26rem, calc(100vw - 2 * var(--space-6)));
+    border-bottom: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .actions {
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,211 @@
+/* -----------------------------------------------------------------------------
+   Engineering Portfolio — light band, white cards, hairline borders
+   -------------------------------------------------------------------------- */
+.services {
+  padding-block: var(--section-space-y);
+  background-color: var(--color-bg);
+}
+
+/* -----------------------------------------------------------------------------
+   Introduction — eyebrow, claim, supporting line
+   -------------------------------------------------------------------------- */
+.intro {
+  max-width: 46rem;
+  margin-bottom: var(--space-14);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-5);
+  color: var(--color-accent-hover);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+}
+
+/* Short accent rule: signals the section without shouting. */
+.eyebrow::before {
+  content: '';
+  width: var(--space-7);
+  height: 1px;
+  background-color: var(--color-accent);
+}
+
+.heading {
+  margin: 0;
+  font-size: var(--text-4xl);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+}
+
+.supporting {
+  margin-top: var(--space-5);
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+}
+
+/* -----------------------------------------------------------------------------
+   Groups — category label left, descriptor right, thin divider beneath
+   -------------------------------------------------------------------------- */
+.groups {
+  display: grid;
+  gap: var(--space-14);
+}
+
+.group {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.groupHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border-strong);
+}
+
+.groupTitleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.groupLabel {
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+/* AI-First badge — teal, small, matching the Figma's secondary accent. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1875rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--color-teal) 45%, transparent);
+  border-radius: var(--radius-sm);
+  background-color: color-mix(in srgb, var(--color-teal) 10%, transparent);
+  color: var(--color-teal-text);
+  font-size: 0.6875rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+/* -----------------------------------------------------------------------------
+   Service cards — white surface, subtle border, restrained radius.
+   Hover: border tint, small lift, icon nudge. Nothing exaggerated.
+   -------------------------------------------------------------------------- */
+.cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-raised);
+  transition:
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.card:hover {
+  border-color: var(--color-accent-border);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.iconBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  color: var(--color-accent);
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+/* Alternating accents: teal for intelligence/runtime icons keeps the Figma's
+   secondary accent present without overwhelming the coral. */
+.card:nth-child(3n) .iconBox {
+  color: var(--color-teal-text);
+  border-color: color-mix(in srgb, var(--color-teal) 30%, var(--color-border));
+}
+
+.card:hover .iconBox {
+  transform: translateY(-2px);
+  border-color: var(--color-accent-border);
+  color: var(--color-accent-hover);
+}
+
+.cardTitle {
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+}
+
+.cardDescription {
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+}
+
+/* -----------------------------------------------------------------------------
+   Responsive — cards go 2-up on tablet, 3/4-up on desktop depending on group
+   -------------------------------------------------------------------------- */
+@media (min-width: 48rem) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 62rem) {
+  .intro {
+    margin-bottom: var(--space-16);
+  }
+
+  /* One shared 4-column rhythm across every group: cards keep identical
+     widths whether the group has 4, 3 or 2 entries — matching the Figma's
+     consistent card sizing (fewer cards simply leave columns empty). */
+  .cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .card {
+    padding: var(--space-7);
+  }
+}
+
+.groupDescriptor {
+  color: var(--color-text-subtle);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+}

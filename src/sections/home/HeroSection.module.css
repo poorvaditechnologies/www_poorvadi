@@ -1,28 +1,418 @@
+/* -----------------------------------------------------------------------------
+   Section shell
+   -------------------------------------------------------------------------- */
 .hero {
-  min-height: 100vh;
-  display: grid;
+  position: relative;
+  display: flex;
   align-items: center;
-  text-align: center;
-  background:
-    radial-gradient(800px 400px at 50% 0%, var(--color-primary-soft), transparent 70%),
-    var(--color-bg);
+  min-height: 78vh;
+  min-height: 78svh;
+  /* Bottom padding is larger than the top so the optical centre sits a little
+     above true centre — the block feels placed, not dropped in. */
+  padding-top: calc(var(--navbar-height) + var(--space-12));
+  padding-bottom: var(--space-16);
+  background-color: var(--color-bg);
+  /* `clip` contains the backdrop and the dashboard's overhang without creating
+     a scroll container, so neither can cause horizontal overflow. */
+  overflow: clip;
 }
 
-.title {
-  font-size: clamp(2.5rem, 7vw, 4.5rem);
-  line-height: 1.1;
-  margin: 0 0 var(--space-4);
+/* -----------------------------------------------------------------------------
+   Backdrop — a faint engineering grid, masked so it fades before the content
+   -------------------------------------------------------------------------- */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  background-size: 56px 56px;
+  opacity: 0.7;
+  /* Fade downward so the grid never competes with the headline. */
+  mask-image: linear-gradient(to bottom, rgb(0 0 0 / 0.9), transparent 78%);
 }
 
-.tagline {
-  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
-  color: var(--color-text-muted);
+/* -----------------------------------------------------------------------------
+   Layout — single column by default, side-by-side from the tablet breakpoint
+   -------------------------------------------------------------------------- */
+.inner {
+  position: relative;
+  display: grid;
+  gap: var(--space-10);
+  align-items: center;
+}
+
+.content {
+  max-width: 44rem;
+}
+
+/* -----------------------------------------------------------------------------
+   Eyebrow — small mono uppercase line, technical rather than pill-shaped
+   -------------------------------------------------------------------------- */
+.eyebrow {
+  margin-bottom: var(--space-6);
+  color: var(--color-accent-hover);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-widest);
+  line-height: var(--leading-normal);
+  text-transform: uppercase;
+}
+
+/* -----------------------------------------------------------------------------
+   Headline
+   -------------------------------------------------------------------------- */
+.headline {
   margin: 0 0 var(--space-6);
+  font-size: clamp(2.5rem, 1.6rem + 3.8vw, 4.75rem);
+  font-weight: var(--weight-semibold);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-tighter);
+  color: var(--color-text);
+  text-wrap: balance;
 }
 
+.description {
+  max-width: 36rem;
+  margin-bottom: var(--space-8);
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+}
+
+/* -----------------------------------------------------------------------------
+   CTAs
+   -------------------------------------------------------------------------- */
 .actions {
   display: flex;
-  gap: var(--space-3);
-  justify-content: center;
   flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+/* Subtle arrow travel on hover — the only button motion. */
+.arrow {
+  display: inline-block;
+  transition: transform var(--transition-fast);
+}
+
+.button:hover .arrow {
+  transform: translateX(3px);
+}
+
+/* -----------------------------------------------------------------------------
+   Trust line
+   -------------------------------------------------------------------------- */
+.trust {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.trustEmphasis {
+  color: var(--color-text-secondary);
+  font-weight: var(--weight-semibold);
+}
+
+.trustDot {
+  color: var(--color-text-subtle);
+}
+
+/* -----------------------------------------------------------------------------
+   Dashboard — dark navy system-monitor panel (Figma hero visual)
+   -------------------------------------------------------------------------- */
+.dashboard {
+  width: 100%;
+  max-width: 34rem;
+  justify-self: center;
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: var(--radius-lg);
+  background-color: var(--navy-900);
+  box-shadow: var(--shadow-lg);
+  color: #c9d4e3;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  overflow: hidden;
+}
+
+.dashHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid rgb(255 255 255 / 0.08);
+  background-color: var(--navy-800);
+}
+
+.dashDots {
+  display: flex;
+  gap: 5px;
+}
+
+.dashDots span {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background-color: rgb(255 255 255 / 0.18);
+}
+
+.dashDots span:first-child {
+  background-color: var(--coral-500);
+}
+
+.dashTitle {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: #9fb0c6;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--teal-400);
+  font-size: 0.6875rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+}
+
+.dashBody {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-4);
+}
+
+.terminal {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.line {
+  color: #e2e8f2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.line[data-tone='ok'] {
+  color: var(--teal-400);
+}
+
+.line[data-tone='muted'] {
+  color: #6e819b;
+}
+
+.prompt {
+  margin-right: var(--space-2);
+  color: var(--coral-400);
+}
+
+.services {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: var(--radius-md);
+  background-color: rgb(255 255 255 / 0.03);
+}
+
+.panelLabel {
+  color: #6e819b;
+  font-size: 0.625rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+}
+
+.serviceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.serviceName {
+  color: #c9d4e3;
+}
+
+.serviceStatus {
+  font-size: 0.6875rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+}
+
+.throughput {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-top: 1px solid rgb(255 255 255 / 0.08);
+  background-color: var(--navy-800);
+}
+
+.throughputMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.throughputValue {
+  color: #e2e8f2;
+  font-weight: var(--weight-medium);
+}
+
+.progressTrack {
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: rgb(255 255 255 / 0.08);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--coral-500), var(--coral-400));
+}
+
+.throughputFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  color: #6e819b;
+  font-size: 0.6875rem;
+}
+
+/* -----------------------------------------------------------------------------
+   Next-section cue — a quiet hairline that trails off toward the section below.
+   Absolutely positioned, decorative, and it cannot affect layout flow.
+   -------------------------------------------------------------------------- */
+.scrollCue {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  pointer-events: none;
+}
+
+.scrollCueLabel {
+  color: var(--color-text-subtle);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+}
+
+.scrollCueTrack {
+  position: relative;
+  width: 1px;
+  height: 2.75rem;
+  background-color: var(--color-border-strong);
+  /* Fades out downwards so the line dissolves into the next section. */
+  mask-image: linear-gradient(to bottom, #000, transparent);
+}
+
+.scrollCueDot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  transform: translateX(-50%);
+  animation: cueTravel 2.8s var(--ease-in-out) infinite;
+}
+
+/* globals.css clamps animation-duration under prefers-reduced-motion,
+   so this loop collapses to a single static frame for those users. */
+@keyframes cueTravel {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    top: calc(100% - 3px);
+    opacity: 0;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Responsive — tablet splits into two columns
+   -------------------------------------------------------------------------- */
+@media (min-width: 62rem) {
+  .inner {
+    /* Text gets the larger share; the dashboard is a supporting visual. */
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: var(--space-12);
+  }
+
+  .dashboard {
+    justify-self: end;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Mobile — stack CTAs full-width so they never crowd each other
+   -------------------------------------------------------------------------- */
+@media (max-width: 29.99rem) {
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .arrow {
+    display: none;
+  }
+}
+
+.serviceStatus[data-status='ok'] {
+  color: var(--teal-400);
+}
+
+.serviceStatus[data-status='warn'] {
+  color: var(--coral-400);
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--teal-400);
+  /* The one allowed looping animation: a quiet status pulse.
+     Collapsed to a static frame under prefers-reduced-motion by globals.css. */
+  animation: livePulse 2.4s var(--ease-in-out) infinite;
+}
+
+@keyframes livePulse {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgb(45 212 191 / 0.5);
+  }
+
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 0 4px rgb(45 212 191 / 0);
+  }
 }
